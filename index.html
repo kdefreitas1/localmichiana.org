@@ -3,9 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michiana Fun</title>
+    <title>Things to Do Michiana - Explore South Bend & Surrounding Areas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #315f97;
+            --secondary-color: #ED8936;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1572205091518-4775443aef91');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-card {
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Things to Do Michiana</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#things-to-do">Things to Do</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dining">Dining</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lodging">Places to Stay</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#plan">Plan Your Visit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-3 mb-4">Discover Michiana</h1>
+            <p class="lead mb-4">Experience the charm and excitement of South Bend and the surrounding areas</p>
+            <a href="#plan" class="btn btn-secondary btn-lg">Plan Your Visit</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-5" id="things-to-do">
+        <div class="container">
+            <h2 class="text-center mb-5">Things to Do</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1540862232-d6ebd51a7425" class="card-img-top" alt="Attractions">
+                        <div class="card-body">
+                            <h5 class="card-title">Attractions</h5>
+                            <p class="card-text">Discover museums, parks, and landmarks that make Michiana unique.</p>
+                            <a href="#" class="btn btn-primary">Explore Attractions</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819" class="card-img-top" alt="Entertainment">
+                        <div class="card-body">
+                            <h5 class="card-title">Entertainment</h5>
+                            <p class="card-text">Find concerts, shows, and exciting nightlife options.</p>
+                            <a href="#" class="btn btn-primary">Find Entertainment</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b" class="card-img-top" alt="Outdoor Activities">
+                        <div class="card-body">
+                            <h5 class="card-title">Outdoor Activities</h5>
+                            <p class="card-text">Explore parks, trails, and outdoor adventures.</p>
+                            <a href="#" class="btn btn-primary">Get Outdoors</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events Section -->
+    <section class="featured-section" id="events">
+        <div class="container">
+            <h2 class="text-center mb-5">Featured Events</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Notre Dame Football</h5>
+                            <p class="card-text">Experience the excitement of game day at Notre Dame Stadium.</p>
+                            <p class="text-muted">Upcoming Games →</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Art Festival</h5>
+                            <p class="card-text">Annual arts and crafts festival featuring local artists.</p>
+                            <p class="text-muted">Learn More →</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Food & Wine Festival</h5>
+                            <p class="card-text">Taste the best local cuisine and wines.</p>
+                            <p class="text-muted">Get Tickets →</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Music in the Park</h5>
+                            <p class="card-text">Free summer concert series in local parks.</p>
+                            <p class="text-muted">View Schedule →</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h3>Stay Updated</h3>
+                    <p class="mb-4">Subscribe to our newsletter for the latest events and attractions</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-auto">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: info@thingstodomichiana.org<br>
+                    Phone: (555) 123-4567</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Events Calendar</a></li>
+                        <li><a href="#" class="text-white">Blog</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3">Facebook</a>
+                        <a href="#" class="text-white me-3">Twitter</a>
+                        <a href="#" class="text-white">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>&copy; 2025 Things to Do Michiana. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
