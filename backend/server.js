@@ -19,10 +19,13 @@ app.get('/api/events', async (req, res) => {
             date: event.dates.start.localDate,
             eventType: event.classifications?.[0]?.segment?.name,
             url: event?.url,
+            info: event?.info,
+            image: event.images?.[0]?.url,
+            venue: event._embedded?.venues?.[0]?.name,
+            city: event._embedded?.venues?.[0]?.city?.name,
         }));
 
-        //res.json(events);
-        res.json(data);
+        res.json(events);
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).send('Error fetching events');
