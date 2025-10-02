@@ -1,6 +1,6 @@
 function displayEvents(data){
-    const names = data.map(event => event.name);
-    console.log(names);
+    const type = data.map(event => event.eventType);
+    const allTypes = [...new Set(type)];
 }
 
 async function getEvents(){
@@ -14,3 +14,14 @@ async function getEvents(){
 }
 
 getEvents();
+
+// For testing purposes. It will be removed later.
+function testDisplay(){
+    const type = ["arts","arts","music","sports","misc","sports","music","sports","misc",undefined];
+    const allTypes = [...new Set(type)];
+    console.log(allTypes);
+
+    
+}
+
+testDisplay();
