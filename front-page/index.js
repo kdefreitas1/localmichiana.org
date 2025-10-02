@@ -1,6 +1,22 @@
 function displayEvents(data){
     const type = data.map(event => event.eventType);
     const allTypes = [...new Set(type)];
+    
+    const eventList = document.getElementById("eventList");
+    data.forEach(event => {
+        const eventDiv = document.createElement("div");
+        eventDiv.classList.add("event");
+        eventDiv.innerHTML = `
+            <p>${event.name}</p>
+            <p>${event.date}</p>
+            <p>${event.eventType}</p>
+            <a href="${event.url}">More Info</a>
+            <p>${event.info}</p>
+            <img src="${event.image}" alt="${event.name}">
+            <p>${event.venue}</p>
+        `;
+        eventList.appendChild(eventDiv);
+    });
 }
 
 async function getEvents(){
@@ -15,7 +31,10 @@ async function getEvents(){
 
 getEvents();
 
+
 // For testing purposes. It will be removed later.
+
+/*
 function testDisplay(){
     const data = [
         {
@@ -40,10 +59,20 @@ function testDisplay(){
 
     const eventList = document.getElementById("eventList");
     data.forEach(event => {
-        const event = document.createElement("div");
-        event.classList.add("event");
-        
+        const eventDiv = document.createElement("div");
+        eventDiv.classList.add("event");
+        eventDiv.innerHTML = `
+            <p>${event.name}</p>
+            <p>${event.date}</p>
+            <p>${event.eventType}</p>
+            <a href="${event.url}">More Info</a>
+            <p>${event.info}</p>
+            <img src="${event.image}" alt="${event.name}">
+            <p>${event.venue}</p>
+        `;
+        eventList.appendChild(eventDiv);
     });
 }
 
 testDisplay();
+*/
