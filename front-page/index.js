@@ -17,11 +17,33 @@ getEvents();
 
 // For testing purposes. It will be removed later.
 function testDisplay(){
-    const type = ["arts","arts","music","sports","misc","sports","music","sports","misc",undefined];
-    const allTypes = [...new Set(type)];
-    console.log(allTypes);
+    const data = [
+        {
+            name: "Concert A",
+            date: "2024-07-01",
+            eventType: "Music",
+            url: "http://example.com/concert-a",
+            info: "An amazing music concert.",
+            image: "http://example.com/image-a.jpg",
+            venue: "Venue A",
+        },
+        {
+            name: "Art Exhibition B",
+            date: "2024-07-05",
+            eventType: "Art",
+            url: "http://example.com/art-b",
+            info: "A stunning art exhibition.",
+            image: "http://example.com/image-b.jpg",
+            venue: "Venue B",
+        },
+    ];
 
-    
+    const eventList = document.getElementById("eventList");
+    data.forEach(event => {
+        const event = document.createElement("div");
+        event.classList.add("event");
+        
+    });
 }
 
 testDisplay();
