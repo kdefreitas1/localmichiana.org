@@ -7,13 +7,13 @@ function displayEvents(data){
         const eventDiv = document.createElement("div");
         eventDiv.classList.add("event");
         eventDiv.innerHTML = `
-            <p>${event.name}</p>
-            <p>${event.date}</p>
-            <p>${event.eventType}</p>
-            <a href="${event.url}">More Info</a>
-            <p>${event.info}</p>
+            <h1>Name: ${event.name}</h1>
+            <p>Date: ${event.date}</p>
+            <p>Event Type: ${event.eventType}</p>
+            <p>Url: <a href="${event.url}">${event.url}</a></p>
+            <p>Info: ${event.info}</p>
             <img src="${event.image}" alt="${event.name}">
-            <p>${event.venue}</p>
+            <p>Venue: ${event.venue}</p>
         `;
         eventList.appendChild(eventDiv);
     });
@@ -38,22 +38,22 @@ getEvents();
 function testDisplay(){
     const data = [
         {
-            name: "Concert A",
-            date: "2024-07-01",
+            name: "Concert",
+            date: "2025-11-02",
             eventType: "Music",
-            url: "http://example.com/concert-a",
+            url: "https://example.com/concert",
             info: "An amazing music concert.",
-            image: "http://example.com/image-a.jpg",
-            venue: "Venue A",
+            image: "http://example.com/concert.jpg",
+            venue: "Venue 1",
         },
         {
-            name: "Art Exhibition B",
-            date: "2024-07-05",
-            eventType: "Art",
-            url: "http://example.com/art-b",
-            info: "A stunning art exhibition.",
-            image: "http://example.com/image-b.jpg",
-            venue: "Venue B",
+            name: "Random Play",
+            date: "2026-07-05",
+            eventType: "Theatre",
+            url: "https://example.com/theatre",
+            info: "A stunning play.",
+            image: "https://example.com/theatre.jpg",
+            venue: "Venue 2",
         },
     ];
 
@@ -62,13 +62,13 @@ function testDisplay(){
         const eventDiv = document.createElement("div");
         eventDiv.classList.add("event");
         eventDiv.innerHTML = `
-            <p>${event.name}</p>
-            <p>${event.date}</p>
-            <p>${event.eventType}</p>
-            <a href="${event.url}">More Info</a>
-            <p>${event.info}</p>
+            <h1>Name: ${event.name}</h1>
+            <p>Date: ${event.date}</p>
+            <p>Event Type: ${event.eventType}</p>
+            <p>Url: <a href="${event.url}">${event.url}</a></p>
+            <p>Info: ${event.info}</p>
             <img src="${event.image}" alt="${event.name}">
-            <p>${event.venue}</p>
+            <p>Venue: ${event.venue}</p>
         `;
         eventList.appendChild(eventDiv);
     });
