@@ -1,0 +1,95 @@
+/* ===== Base Page ===== */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #1e3a8a;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* ===== Category Buttons ===== */
+.categoryContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.categoryBtn {
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  padding: 12px 0;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.categoryBtn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.categoryBtn.active {
+  background-color: #3b82f6;
+}
+
+/* ===== Event Cards ===== */
+#eventList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.event {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.event h1 {
+  font-size: 1.1rem;
+  color: #1d4ed8;
+  margin-bottom: 8px;
+}
+
+.event p {
+  font-size: 0.9rem;
+  margin: 4px 0;
+  color: #555;
+}
+
+.event img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.event a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.event a:hover {
+  text-decoration: underline;
+}

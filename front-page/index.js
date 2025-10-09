@@ -1,22 +1,21 @@
 function displayEvents(data){
-    const type = data.map(event => event.eventType);
-    const allTypes = [...new Set(type)];
-    
     const eventList = document.getElementById("eventList");
+
     data.forEach(event => {
-        const eventDiv = document.createElement("div");
-        eventDiv.classList.add("event");
-        eventDiv.innerHTML = `
-            <h1>Name: ${event.name}</h1>
-            <p>Date: ${event.date}</p>
-            <p>Event Type: ${event.eventType}</p>
-            <p>Url: <a href="${event.url}">${event.url}</a></p>
-            <p>Info: ${event.info}</p>
-            <img src="${event.image}" alt="${event.name}">
-            <p>Venue: ${event.venue}</p>
-        `;
-        eventList.appendChild(eventDiv);
-    });
+    const eventDiv = document.createElement("div");
+    eventDiv.classList.add("event");
+
+    eventDiv.innerHTML = `
+      <h1>${event.name}</h1>
+      <p><strong>Date:</strong> ${event.date}</p>
+      <p><strong>Type:</strong> ${event.eventType}</p>
+      <p><strong>Venue:</strong> ${event.venue}</p>
+      <p><a href="${event.url}" target="_blank">View Event</a></p>
+      <img src="${event.image}" alt="${event.name}">
+    `;
+
+    eventList.appendChild(eventDiv);
+  });
 }
 
 async function getEvents(){
@@ -30,49 +29,3 @@ async function getEvents(){
 }
 
 getEvents();
-
-
-// For testing purposes. It will be removed later.
-
-/*
-function testDisplay(){
-    const data = [
-        {
-            name: "Concert",
-            date: "2025-11-02",
-            eventType: "Music",
-            url: "https://example.com/concert",
-            info: "An amazing music concert.",
-            image: "http://example.com/concert.jpg",
-            venue: "Venue 1",
-        },
-        {
-            name: "Random Play",
-            date: "2026-07-05",
-            eventType: "Theatre",
-            url: "https://example.com/theatre",
-            info: "A stunning play.",
-            image: "https://example.com/theatre.jpg",
-            venue: "Venue 2",
-        },
-    ];
-
-    const eventList = document.getElementById("eventList");
-    data.forEach(event => {
-        const eventDiv = document.createElement("div");
-        eventDiv.classList.add("event");
-        eventDiv.innerHTML = `
-            <h1>Name: ${event.name}</h1>
-            <p>Date: ${event.date}</p>
-            <p>Event Type: ${event.eventType}</p>
-            <p>Url: <a href="${event.url}">${event.url}</a></p>
-            <p>Info: ${event.info}</p>
-            <img src="${event.image}" alt="${event.name}">
-            <p>Venue: ${event.venue}</p>
-        `;
-        eventList.appendChild(eventDiv);
-    });
-}
-
-testDisplay();
-*/
