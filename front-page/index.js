@@ -31,7 +31,7 @@ function displayEvents(data) {
    if(type.includes('sport')) key = 'sports';
     else if(type.includes('art') || type.includes('theatre') || type.includes('theater')) key = 'arts';
     else if(type.includes('music')) key = 'music';
-    else if(type.length === 0) key = 'undefined';
+    else if(type.length === 0 || type.includes("undefined")) key = 'undefined';
     else key = 'misc';
 
     buckets[key].push(event);
