@@ -1,4 +1,4 @@
-/* ===== Base Page ===== */
+/* Body */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: #f5f6fa;
@@ -7,45 +7,7 @@ body {
   padding: 20px;
 }
 
-.pageTitle {
-  text-align: center;
-  color: #1e3a8a;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-/* ===== Category Buttons ===== */
-.categoryContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 600px;
-  margin: 0 auto 30px;
-}
-
-.categoryBtn {
-  background-color: #1e40af;
-  color: white;
-  border: none;
-  padding: 12px 0;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.categoryBtn:hover {
-  background-color: #2563eb;
-  transform: translateY(-2px);
-}
-
-.categoryBtn.active {
-  background-color: #3b82f6;
-}
-
-/* ===== Event Cards ===== */
-
-/* Columns container: 5 columns */
+/* Column */
 #columnsContainer {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -77,6 +39,7 @@ body {
   gap: 12px;
 }
 
+/* Event Card */
 .event {
   background-color: white;
   border-radius: 12px;

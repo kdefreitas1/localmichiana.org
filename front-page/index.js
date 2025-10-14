@@ -6,6 +6,7 @@ function createEventCard(event) {
     <h1>${event.name || 'Untitled Event'}</h1>
     <p><strong>Date:</strong> ${event.date || 'TBA'}</p>
     <p><strong>Venue:</strong> ${event.venue || 'Not specified'}</p>
+    <p><strong>City:</strong> ${event.city}</p>
     <p><a href="${event.url || '#'}" target="_blank">View Event</a></p>
     ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ''}
   `;
@@ -28,7 +29,7 @@ function displayEvents(data) {
     const type = (event.eventType || "").toLowerCase();
     let key;
 
-   if(type.includes('sport')) key = 'sports';
+    if(type.includes('sport')) key = 'sports';
     else if(type.includes('art') || type.includes('theatre') || type.includes('theater')) key = 'arts';
     else if(type.includes('music')) key = 'music';
     else if(type.length === 0 || type.includes("undefined")) key = 'undefined';

@@ -32,7 +32,6 @@ async function fetchEvents() {
         lastUpdated = new Date();
     } catch (error) {
         console.error('Error fetching events:', error);
-        res.status(500).send('Error fetching events');
     }
 }
 
