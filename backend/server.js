@@ -18,13 +18,18 @@ async function fetchEvents() {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        events = data._embedded.events.map(event => ({
+        const eventImages = data._embedded.events.map(event => {
+            const found = event.images?.find(img => img.url.includes("SOURCE"));
+            return found ? found.url : event.images?.[0]?.url; 
+        });
+
+        events = data._embedded.events.map((event, i) => ({
             name: event.name,
             date: event.dates.start.localDate,
             eventType: event.classifications?.[0]?.segment?.name,
             url: event?.url,
             info: event?.info,
-            image: event.images?.[0]?.url,
+            image: eventImages[i],
             venue: event._embedded?.venues?.[0]?.name,
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
