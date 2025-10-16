@@ -19,8 +19,11 @@ async function fetchEvents() {
         const data = await response.json();
 
         const eventImages = data._embedded.events.map(event => {
-            const found = event.images?.find(img => img.url.includes("SOURCE"));
-            return found ? found.url : event.images?.[0]?.url; 
+            let found = event.images?.find(img => img.url.includes("SOURCE"))
+            || event.images?.find(img => img.url.includes("LARGE"))
+            || event.images?.[0]?.url;
+
+            return found?.url;
         });
 
         events = data._embedded.events.map((event, i) => ({
