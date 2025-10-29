@@ -1,8 +1,8 @@
 /* Body */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f5f6fa;
-  color: #333;
+  background-color: #06070E;
+  color: black;
   margin: 0;
   padding: 20px;
 }
@@ -25,7 +25,7 @@ body {
 
 .columnTitle {
   text-align: center;
-  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  background-color: #29524A;
   color: white;
   margin: 0;
   padding: 10px 8px;
@@ -47,11 +47,7 @@ body {
   overflow: hidden;
   padding: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.event:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  height: 330px;
 }
 
 .event h1 {
@@ -63,7 +59,6 @@ body {
 .event p {
   font-size: 0.9rem;
   margin: 4px 0;
-  color: #555;
 }
 
 .event img {
