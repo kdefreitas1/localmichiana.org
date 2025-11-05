@@ -8,52 +8,25 @@ function createEventCard(event) {
     <p><strong>Venue:</strong> ${event.venue}</p>
     <p><strong>City:</strong> ${event.city}</p>
     <p><a href="${event.url}" target="_blank">View Event</a></p>
-    ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ''}
+    ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ""}
   `;
 
   return eventDiv;
 }
 
 function displayEvents(data) {
-  // buckets for 5 columns
-  const buckets = {
-    sports: [],
-    arts: [],
-    music: [],
-    misc: [],
-    undefined: []
-  };
-
-  // Categorize each event
+  const eventsContainer = document.getElementById("eventsContainer");
   data.forEach(event => {
-    const type = (event.eventType || "").toLowerCase();
-    let key;
-
-    if(type.includes('sport')) key = 'sports';
-    else if(type.includes('art') || type.includes('theatre') || type.includes('theater')) key = 'arts';
-    else if(type.includes('music')) key = 'music';
-    else if(type.length === 0) key = 'undefined';
-    else key = 'misc';
-
-    buckets[key].push(event);
+    eventsContainer.appendChild(createEventCard(event));
   });
-
-
-
-  // Render each bucket
-  buckets.sports.forEach(ev => document.getElementById('list-sports').appendChild(createEventCard(ev)));
-  buckets.arts.forEach(ev => document.getElementById('list-arts').appendChild(createEventCard(ev)));
-  buckets.music.forEach(ev => document.getElementById('list-music').appendChild(createEventCard(ev)));
-  buckets.misc.forEach(ev => document.getElementById('list-misc').appendChild(createEventCard(ev)));
-  buckets.undefined.forEach(ev => document.getElementById('list-undefined').appendChild(createEventCard(ev)));
 }
 
-async function getEvents(){
-    try{
-        const response = await fetch('http://localhost:3000/api/events');
+async function getEvents() {
+    try {
+        const response = await fetch("http://localhost:3000/api/events");
         const data = await response.json();
         displayEvents(data);
-    }catch(error){
+    } catch (error) {
         console.error(error);
     }
 }

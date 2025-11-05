@@ -1,8 +1,8 @@
-require('dotenv').config('./backend/.env');
+require("dotenv").config("./backend/.env");
 
-const express = require('express');
-const cors = require('cors');
-const cron = require('node-cron');
+const express = require("express");
+const cors = require("cors");
+const cron = require("node-cron");
 const app = express();
 
 app.use(cors());
@@ -39,18 +39,18 @@ async function fetchEvents() {
 
         lastUpdated = new Date();
     } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
     }
 }
 
 fetchEvents();
-cron.schedule('0 */24 * * *', fetchEvents);
+cron.schedule("0 */24 * * *", fetchEvents);
 
-app.get('/api/events', (req, res) => {
+app.get("/api/events", (req, res) => {
     console.log(`Last updated: ${lastUpdated}`);
     res.json(events);
 });
 
 app.listen(3000, () => {
-    console.log('Backend running on http://localhost:3000');
+    console.log("Backend running on http://localhost:3000");
 });
