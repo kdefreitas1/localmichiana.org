@@ -2,7 +2,13 @@ body {
   font-family: sans-serif;
 }
 
-.itemsContainer {
+.hero img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.items-container {
   max-width: 1000px;
   margin: auto;
   display: grid;

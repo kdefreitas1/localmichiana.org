@@ -15,7 +15,7 @@ function createEventCard(event) {
 }
 
 function displayEvents(data) {
-  const eventsContainer = document.getElementById("eventsContainer");
+  const eventsContainer = document.getElementById("events-container");
   data.forEach(event => {
     eventsContainer.appendChild(createEventCard(event));
   });
