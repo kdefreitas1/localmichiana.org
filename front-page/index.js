@@ -3,7 +3,7 @@ function createEventCard(event) {
   eventDiv.classList.add("event");
 
   eventDiv.innerHTML = `
-    <h1>${event.name}</h1>
+    <h3>${event.name}</h3>
     <p><strong>Date:</strong> ${event.date}</p>
     <p><strong>Venue:</strong> ${event.venue}</p>
     <p><strong>City:</strong> ${event.city}</p>
