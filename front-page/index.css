@@ -89,6 +89,11 @@ body {
   margin-bottom: 10px;
 }
 
+.event a {
+  text-decoration: none;
+  color: black;
+}
+
 .event img {
   object-fit: cover;
   width: 100%;

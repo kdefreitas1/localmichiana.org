@@ -13,12 +13,19 @@ function createEventCard(event, isPlaceholder) {
     `;
   } else {
       eventDiv.innerHTML = `
-      <h3>${event.name}</h3>
-      <p><strong>Date:</strong> ${event.date}</p>
-      <p><strong>Venue:</strong> ${event.venue}</p>
-      <p><strong>City:</strong> ${event.city}</p>
+      <h3>No Events Avaliable</h3>
+      <p><strong>Date:</strong> N/A</p>
+      <p><strong>Venue:</strong> N/A</p>
+      <p><strong>City:</strong> N/A</p>
       <p>No Link Avaliable</p>
-      <img src="/front-page/No Image Avaliable.png" alt="No Image Available">
+      <div style="position: relative;">
+        <img src="/front-page/No Image Avaliable.png" alt="No Image Available" style="display: block;">
+        <p style="position: absolute; bottom: -10px; font-size: 8px;">
+          Image Credit:
+          <a href="https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg">Ranjithsiji</a>,
+          <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+        </p>
+      </div>
     `;
   }
   return eventDiv;
