@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   margin: 0;
+  background-color: rgb(237, 247, 255);
 }
 
 .header { 
@@ -74,9 +75,9 @@ body {
 }
 
 .event {
-  border: 1px solid #999999;
-  border-radius: 1px;
   display: grid;
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .event h3 {
@@ -91,7 +92,7 @@ body {
 
 .event a {
   text-decoration: none;
-  color: black;
+  color: #0000EE;
 }
 
 .event img {

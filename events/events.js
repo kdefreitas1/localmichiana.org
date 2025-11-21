@@ -20,10 +20,10 @@ function createEventCard(event, isPlaceholder) {
       <p>No Link Avaliable</p>
       <div style="position: relative;">
         <img src="/front-page/No Image Avaliable.png" alt="No Image Available" style="display: block;">
-        <p style="position: absolute; bottom: -10px; font-size: 8px;">
+        <p style="position: absolute; bottom: -10px; font-size: 5px;">
           Image Credit:
-          <a href="https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg">Ranjithsiji</a>,
-          <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+          <a href="https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg" style="color: black;">Ranjithsiji</a>,
+          <a href="https://creativecommons.org/licenses/by-sa/4.0" style="color: black;">CC BY-SA 4.0</a>, via Wikimedia Commons
         </p>
       </div>
     `;
