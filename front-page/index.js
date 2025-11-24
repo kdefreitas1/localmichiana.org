@@ -1,25 +1,25 @@
-function createEventCard(event, isPlaceholder) {
-  const eventDiv = document.createElement("div");
-  eventDiv.classList.add("event");
+function createItemCard(item, isPlaceholder, type) {
+  const itemDiv = document.createElement("div");
+  itemDiv.classList.add("item");
 
-  if(isPlaceholder == false) {
-    eventDiv.innerHTML = `
-      <h3>${event.name}</h3>
-      <p><strong>Date:</strong> ${event.date}</p>
-      <p><strong>Venue:</strong> ${event.venue}</p>
-      <p><strong>City:</strong> ${event.city}</p>
-      <p><a href="${event.url}" target="_blank">View Event</a></p>
-      ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ""}
+  if (type == "event" && isPlaceholder == false) {
+    itemDiv.innerHTML = `
+      <h3>${item.name}</h3>
+      <p><strong>Date:</strong> ${item.date}</p>
+      <p><strong>Venue:</strong> ${item.venue}</p>
+      <p><strong>City:</strong> ${item.city}</p>
+      <p><a href="${item.url}" target="_blank">View Event</a></p>
+      ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ""}
     `;
-  } else {
-      eventDiv.innerHTML = `
-      <h3>No Events Avaliable</h3>
-      <p><strong>Date:</strong> N/A</p>
-      <p><strong>Venue:</strong> N/A</p>
-      <p><strong>City:</strong> N/A</p>
+  } else if (type == "event" && isPlaceholder == true) {
+    itemDiv.innerHTML = `
+      <h3>${item.name}</h3>
+      <p><strong>Date:</strong> ${item.date}</p>
+      <p><strong>Venue:</strong> ${item.venue}</p>
+      <p><strong>City:</strong> ${item.city}</p>
       <p>No Link Avaliable</p>
       <div style="position: relative;">
-        <img src="/front-page/No Image Avaliable.png" alt="No Image Available" style="display: block;">
+        <img src="/front-page/No Image Avaliable.svg" alt="No Image Available" style="display: block;">
         <p style="position: absolute; bottom: -10px; font-size: 5px;">
           Image Credit:
           <a href="https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg" style="color: black;">Ranjithsiji</a>,
@@ -27,27 +27,35 @@ function createEventCard(event, isPlaceholder) {
         </p>
       </div>
     `;
+  } else if (type == "place" && isPlaceholder == true) {
+    itemDiv.innerHTML = `
+      <h3>${item.name}</h3>
+      <p><strong>Date:</strong> ${item.date}</p>
+      <p><strong>City:</strong> ${item.city}</p>
+      <p>No Link Avaliable</p>
+      <img src="/front-page/placeholder image.svg" alt="No Image Available"">
+    `;
   }
-  return eventDiv;
+  return itemDiv;
 }
 
 function displayEvents(data) {
   const eventsContainer = document.getElementById("events-container");
   for(let i = 0; i < 10; i++) {
-    eventsContainer.appendChild(createEventCard(data[i], false));
+    eventsContainer.appendChild(createItemCard(data[i], false, "event"));
   }
 }
 
-function displayPlaceholderEvents() {
+function displayPlaceholder(name, containerId, type) {
   data = [{
-    name: "No Events Available",
+    name: name,
     date: "N/A",
     venue: "N/A",
     city: "N/A",
   }];
-  const eventsContainer = document.getElementById("events-container");
+  const itemsContainer = document.getElementById(containerId);
   for (let i = 0; i < 10; i++) {
-    eventsContainer.appendChild(createEventCard(data[0], true));
+    itemsContainer.appendChild(createItemCard(data[0], true, type));
   }
 }
 
@@ -61,9 +69,10 @@ async function getEvents() {
         displayEvents(data);
       }
     } catch (error) {
-      displayPlaceholderEvents();
+      displayPlaceholder("No Events Available", "events-container", "event");
       console.error(error);
     }
 }
 
 getEvents();
+displayPlaceholder("Placeholder Name", "places-container", "place");

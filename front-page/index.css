@@ -74,28 +74,29 @@ body {
   grid-gap: 20px;
 }
 
-.event {
+.item {
   display: grid;
   background-color: white;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+  min-height: 370px;
 }
 
-.event h3 {
+.item h3 {
   margin: 0;
   margin-bottom: 10px;
 }
 
-.event p {
+.item p {
   margin: 0;
   margin-bottom: 10px;
 }
 
-.event a {
+.item a {
   text-decoration: none;
   color: #0000EE;
 }
 
-.event img {
+.item img {
   object-fit: cover;
   width: 100%;
   height: 160px;
