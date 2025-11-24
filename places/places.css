@@ -1,0 +1,115 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: rgb(237, 247, 255);
+}
+
+.header { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
+}
+
+.header .website-name {
+  float: left;
+  padding: 0;
+}
+
+.header .website-name h1 {
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.header nav {
+  float: right;
+  margin-right: 20px;
+}
+
+.header nav a {
+  padding: 14px 16px;
+  font-size: 20px;
+}
+
+.header nav a:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/places/places.jpg");
+  height: 80vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: -1;
+}
+
+.hero h1 {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white; 
+  margin: 0;
+}
+
+.items-container {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-gap: 20px;
+}
+
+.event {
+  display: grid;
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.event h3 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.event p {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.event a {
+  text-decoration: none;
+  color: #0000EE;
+}
+
+.event img {
+  object-fit: cover;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  align-self: end;
+}
+
+.container-header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.container-header h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}

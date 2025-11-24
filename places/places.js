@@ -13,7 +13,7 @@ function createEventCard(event, isPlaceholder) {
     `;
   } else {
       eventDiv.innerHTML = `
-      <h3>No Events Avaliable</h3>
+      <h3>No Places Avaliable</h3>
       <p><strong>Date:</strong> N/A</p>
       <p><strong>Venue:</strong> N/A</p>
       <p><strong>City:</strong> N/A</p>
