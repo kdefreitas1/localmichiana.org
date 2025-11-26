@@ -33,6 +33,7 @@ function createEventCard(event, isPlaceholder) {
 
 function displayEvents(data) {
   const eventsContainer = document.getElementById("events-container");
+  eventsContainer.innerHTML = "";
   data.forEach(event => {
     eventsContainer.appendChild(createEventCard(event, false));
   });
@@ -52,19 +53,14 @@ function displayPlaceholderEvents() {
 }
 
 async function getEvents() {
-    try {
-      const response = await fetch("http://localhost:3000/api/events");
-      if (!response.ok) {
-        throw new Error("Response not ok");
-      } else {
-        const data = await response.json();
-        displayEvents(data);
-        console.log("ok");
-      }
-    } catch (error) {
-      displayPlaceholderEvents();
-      console.error(error);
-    }
+  try {
+    const response = await fetch("http://localhost:3000/api/events");
+    const data = await response.json();
+    displayEvents(data);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
+displayPlaceholderEvents();
 getEvents();
