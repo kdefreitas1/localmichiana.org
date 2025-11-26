@@ -41,7 +41,8 @@ function createItemCard(item, isPlaceholder, type) {
 
 function displayEvents(data) {
   const eventsContainer = document.getElementById("events-container");
-  for(let i = 0; i < 10; i++) {
+  eventsContainer.innerHTML = "";
+  for (let i = 0; i < 10; i++) {
     eventsContainer.appendChild(createItemCard(data[i], false, "event"));
   }
 }
@@ -60,19 +61,15 @@ function displayPlaceholder(name, containerId, type) {
 }
 
 async function getEvents() {
-    try {
-      const response = await fetch("http://localhost:3000/api/events");
-      if (!response.ok) {
-        throw new Error("Response not ok");
-      } else {
-        const data = await response.json();
-        displayEvents(data);
-      }
-    } catch (error) {
-      displayPlaceholder("No Events Available", "events-container", "event");
-      console.error(error);
-    }
+  try {
+    const response = await fetch("http://localhost:3000/api/events");
+    const data = await response.json();
+    displayEvents(data);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-getEvents();
+displayPlaceholder("No Events Available", "events-container", "event");
 displayPlaceholder("Placeholder Name", "places-container", "place");
+getEvents();
