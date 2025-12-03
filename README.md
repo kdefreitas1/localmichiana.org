@@ -21,5 +21,5 @@ This website was made in 1 semester for a capstone class. The idea was to create
 
 Made by Kamalani DeFreitas with the help of Sohan Patel
 
-Contact: kamalani.defreitas@gmail.com
+Contact: localmichiana@gmail.com or kamalani.defreitas@gmail.com
 
