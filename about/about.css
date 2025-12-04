@@ -78,3 +78,7 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.about-content a {
+  color: blue;
+}
