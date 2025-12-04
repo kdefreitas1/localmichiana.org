@@ -7,7 +7,7 @@ function createPlaceCard(place) {
       <p><strong>Date:</strong> ${place.date}</p>
       <p><strong>City:</strong> ${place.city}</p>
       <p>No Link Avaliable</p>
-      <img src="/front-page/placeholder image.svg" alt="No Image Available"">
+      <img src="/front-page/placeholder image.svg" alt="Placeholder Image"">
     `;
   return placesDiv;
 }
