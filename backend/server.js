@@ -14,7 +14,7 @@ let lastUpdated = null;
 
 async function fetchEvents() {
     try {
-        const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=100&sort=date,asc&apikey=${ticketmasterApiKey}`;
+        const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
 
@@ -44,7 +44,7 @@ async function fetchEvents() {
 }
 
 fetchEvents();
-cron.schedule("0 */24 * * *", fetchEvents);
+cron.schedule("0 */5 * * *", fetchEvents);
 
 app.get("/api/events", (req, res) => {
     console.log(`Last updated: ${lastUpdated}`);

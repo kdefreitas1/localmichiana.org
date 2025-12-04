@@ -17,9 +17,9 @@ function createItemCard(item, isPlaceholder, type) {
       <p><strong>Date:</strong> ${item.date}</p>
       <p><strong>Venue:</strong> ${item.venue}</p>
       <p><strong>City:</strong> ${item.city}</p>
-      <p>No Link Avaliable</p>
+      <p>No Link Available</p>
       <div style="position: relative;">
-        <img src="/front-page/No Image Avaliable.svg" alt="No Image Available" style="display: block;">
+        <img src="/front-page/No Image Available.svg" alt="No Image Available" style="display: block;">
         <p style="position: absolute; bottom: -10px; font-size: 5px;">
           Image Credit:
           <a href="https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg" style="color: black;">Ranjithsiji</a>,
@@ -32,8 +32,8 @@ function createItemCard(item, isPlaceholder, type) {
       <h3>${item.name}</h3>
       <p><strong>Date:</strong> ${item.date}</p>
       <p><strong>City:</strong> ${item.city}</p>
-      <p>No Link Avaliable</p>
-      <img src="/front-page/placeholder image.svg" alt="No Image Available"">
+      <p>No Link Available</p>
+      <img src="/front-page/placeholder image.svg" alt="Placeholder Image">
     `;
   }
   return itemDiv;
@@ -48,7 +48,7 @@ function displayEvents(data) {
 }
 
 function displayPlaceholder(name, containerId, type) {
-  data = [{
+  const data = [{
     name: name,
     date: "N/A",
     venue: "N/A",
@@ -64,12 +64,34 @@ async function getEvents() {
   try {
     const response = await fetch("http://localhost:3000/api/events");
     const data = await response.json();
+
+    localStorage.setItem("eventsData", JSON.stringify(data));
+    localStorage.setItem("eventsTimestamp", Date.now());
+
     displayEvents(data);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching events:", error);
+  }
+}
+
+function loadEvents() {
+  const eventsData = localStorage.getItem("eventsData");
+  const eventsTimestamp = localStorage.getItem("eventsTimestamp");
+  
+  if (eventsData && eventsTimestamp) {
+    const now = Date.now();
+    const sixHours = Number(eventsTimestamp) + 6 * 60 * 60 * 1000;
+
+    if (now < sixHours) {
+      displayEvents(JSON.parse(eventsData));
+    } else {
+      getEvents();
+    }
+  } else {
+    getEvents();
   }
 }
 
 displayPlaceholder("No Events Available", "events-container", "event");
 displayPlaceholder("Placeholder Name", "places-container", "place");
-getEvents();
+loadEvents();
