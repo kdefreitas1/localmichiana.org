@@ -1,11 +1,16 @@
 import { env } from "cloudflare:workers";
 import { httpServerHandler } from "cloudflare:node";
 import express from "express";
-const cors = require("cors");
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.status(204).end();
+  next();
+});
 
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
@@ -42,6 +47,6 @@ app.get("/api/events", async (req, res) => {;
 	res.json(events);
 });
 
-app.listen(3000);
 
-export default httpServerHandler({ port: 3000 });
+
+export default httpServerHandler(app);

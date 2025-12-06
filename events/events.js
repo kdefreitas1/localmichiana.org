@@ -54,7 +54,7 @@ function displayPlaceholderEvents() {
 
 async function getEvents() {
   try {
-    const response = await fetch("https://localmichiana.org/api/events");
+    const response = await fetch("/api/events");
     const data = await response.json();
 
     localStorage.setItem("eventsData", JSON.stringify(data));
