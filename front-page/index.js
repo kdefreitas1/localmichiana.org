@@ -63,7 +63,7 @@ function displayPlaceholder(name, containerId, type) {
 async function getEvents() {
   try {
     const response = await fetch(
-      "https://ticketmaster-worker.kamalani-defreitas.workers.dev/api/events",
+      "https://api.localmichiana.org/api/events",
       {
         method: "GET",
         mode: "cors",
