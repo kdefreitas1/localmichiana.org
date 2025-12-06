@@ -1,9 +1,10 @@
 import { env } from "cloudflare:workers";
 import { httpServerHandler } from "cloudflare:node";
 import express from "express";
+const cors = require("cors");
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
