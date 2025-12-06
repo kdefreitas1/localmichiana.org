@@ -2,7 +2,6 @@ require("dotenv").config("./backend/.env");
 
 const express = require("express");
 const cors = require("cors");
-const cron = require("node-cron");
 const app = express();
 
 app.use(cors());
@@ -10,7 +9,6 @@ app.use(cors());
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
 
 let events = [];
-let lastUpdated = null;
 
 async function fetchEvents() {
     try {
@@ -37,17 +35,14 @@ async function fetchEvents() {
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
 
-        lastUpdated = new Date();
     } catch (error) {
         console.error("Error fetching events:", error);
     }
 }
 
 fetchEvents();
-cron.schedule("0 */5 * * *", fetchEvents);
 
 app.get("/api/events", (req, res) => {
-    console.log(`Last updated: ${lastUpdated}`);
     res.json(events);
 });
 
