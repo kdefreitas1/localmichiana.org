@@ -54,7 +54,7 @@ function displayPlaceholderEvents() {
 
 async function getEvents() {
   try {
-    const response = await fetch("/api/events");
+    const response = await fetch("https://ticketmaster-worker.kamalani-defreitas.workers.dev/api/events");
     const data = await response.json();
 
     localStorage.setItem("eventsData", JSON.stringify(data));
