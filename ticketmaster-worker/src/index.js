@@ -4,6 +4,8 @@ import express from "express";
 
 const app = express();
 app.use(express.json());
+const cors = require("cors");
+app.use(cors());
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "https://www.localmichiana.org");
 	res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
