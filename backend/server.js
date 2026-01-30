@@ -9,8 +9,9 @@ app.use(cors());
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
 
 let events = [];
+let testEvents = [];
 
-async function fetchEvents() {
+async function fetchTicketmasterEvents() {
     try {
         const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
         const response = await fetch(apiUrl);
@@ -40,10 +41,21 @@ async function fetchEvents() {
     }
 }
 
-fetchEvents();
+fetchTicketmasterEvents();
 
 app.get("/api/events", (req, res) => {
     res.json(events);
+});
+
+app.get("/api/test", async (req, res) => {
+    try {
+        const apiUrl = `https://www.eventbriteapi.com/v3/events/search/?location.address=46505&token=${process.env.EVENTBRITE_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching events:", error);
+    }
 });
 
 app.listen(3000, () => {
