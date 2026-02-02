@@ -1,5 +1,7 @@
 require("dotenv").config("./backend/.env");
 
+const puppeteer = require("puppeteer");
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -50,10 +52,12 @@ app.get("/api/events", (req, res) => {
 
 app.get("/test/events", async (req, res) => {
     try {
-        const apiUrl = ``;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        res.json(data);
+        const apiUrl = `https://example.com/`;
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(apiUrl);
+        await page.screenshot({ path: "screenshot.png" });
+        await browser.close();
     } catch (error) {
         console.error("Error fetching events:", error);
     }
