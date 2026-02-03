@@ -12,7 +12,6 @@ const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
 const googleApiKey = process.env.GOOGLE_API_KEY;
 
 let events = [];
-let testEvents = [];
 
 async function fetchTicketmasterEvents() {
     try {
@@ -52,11 +51,21 @@ app.get("/api/events", (req, res) => {
 
 app.get("/test/events", async (req, res) => {
     try {
-        const apiUrl = `https://example.com/`;
-        const browser = await puppeteer.launch();
+        let test = [];
+        const apiUrl = `https://www.eventbrite.com/d/united-states/all-events/?page=1&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
+        const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
         await page.goto(apiUrl);
+
+        await page.locator(".IconButton_root__18146").click();
+        await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
+        
+        await page.locator(".li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)").click();
+        await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
+
         await page.screenshot({ path: "screenshot.png" });
+
+        
         await browser.close();
     } catch (error) {
         console.error("Error fetching events:", error);
