@@ -57,11 +57,17 @@ app.get("/test/events", async (req, res) => {
         const page = await browser.newPage();
         await page.goto(apiUrl);
 
-        await page.locator(".IconButton_root__18146").click();
-        await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
+        const numPages = await page.evaluate(() => {
+            const num = document.querySelectorAll(".Pagination-module__search-pagination__navigation-minimal___1eHd9");
+            return num;
+        });
+        console.log(numPages);
+
+        await page.locator(".IconButton_root__18146").click();  
+
+        await page.locator("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)").click();
         
-        await page.locator(".li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)").click();
-        await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
+        await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
 
         await page.screenshot({ path: "screenshot.png" });
 
