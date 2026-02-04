@@ -2,7 +2,7 @@ function createEventCard(event, isPlaceholder) {
   const eventDiv = document.createElement("div");
   eventDiv.classList.add("event");
 
-  if (isPlaceholder == false) {
+  if (isPlaceholder === false) {
     eventDiv.innerHTML = `
       <h3>${event.name}</h3>
       <p><strong>Date:</strong> ${event.date}</p>

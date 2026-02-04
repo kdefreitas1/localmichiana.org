@@ -2,7 +2,7 @@ function createItemCard(item, isPlaceholder, type) {
   const itemDiv = document.createElement("div");
   itemDiv.classList.add("item");
 
-  if (type == "event" && isPlaceholder == false) {
+  if (type === "event" && isPlaceholder === false) {
     itemDiv.innerHTML = `
       <h3>${item.name}</h3>
       <p><strong>Date:</strong> ${item.date}</p>
@@ -11,7 +11,7 @@ function createItemCard(item, isPlaceholder, type) {
       <p><a href="${item.url}" target="_blank">View Event</a></p>
       ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ""}
     `;
-  } else if (type == "event" && isPlaceholder == true) {
+  } else if (type === "event" && isPlaceholder === true) {
     itemDiv.innerHTML = `
       <h3>${item.name}</h3>
       <p><strong>Date:</strong> ${item.date}</p>
@@ -27,7 +27,7 @@ function createItemCard(item, isPlaceholder, type) {
         </p>
       </div>
     `;
-  } else if (type == "place" && isPlaceholder == true) {
+  } else if (type === "place" && isPlaceholder === true) {
     itemDiv.innerHTML = `
       <h3>${item.name}</h3>
       <p><strong>Date:</strong> ${item.date}</p>
