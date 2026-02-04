@@ -53,29 +53,29 @@ app.get("/test/events", async (req, res) => {
     try {
         let test = [];
         let pageNum = 1;
-        let apiUrl = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
+        let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
         const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
-        await page.goto(apiUrl);
-
         
+        
+        page.on("response", async (response) => {
+            if (response.url().includes("/api/v3/destination/events/")) {
+                console.log(await response.json());
+            }
+        });
+
+        await page.goto(url);
 
         while (true) {
             if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
                 pageNum++;
-                apiUrl = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
-                await page.goto(apiUrl);
+                url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
+                await page.goto(url);
             } else {
                 await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
-                await page.screenshot({ path: "screenshot.png" });
                 break;
             }
         }
-        
-        
-        
-        
-
 
         await browser.close();
     } catch (error) {
