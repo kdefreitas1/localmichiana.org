@@ -14,12 +14,14 @@ app.use((req, res, next) => {
 	if (req.method === "OPTIONS") return res.status(204).end();
   		next();
 });
+const cron = require("node-cron");
 
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
 let events = [];
+let lastUpdated = null;
 
-app.get("/api/events", async (req, res) => {;
+async function fetchEvents() {
 	try {
 		const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
 		const response = await fetch(apiUrl);
@@ -47,6 +49,13 @@ app.get("/api/events", async (req, res) => {;
 	} catch (error) {
 		console.error("Error fetching events:", error);
 	}
+	res.json(events);
+}
+
+fetchEvents();
+cron.schedule("0 */24 * * *", fetchEvents);
+
+app.get("/api/events", async (req, res) => {
 	res.json(events);
 });
 
