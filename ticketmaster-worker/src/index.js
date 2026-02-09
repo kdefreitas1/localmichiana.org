@@ -52,19 +52,22 @@ async function fetchEvents() {
 	}
 }
 
-// Initial fetch on startup
-fetchEvents();
-
 app.get("/api/events", async (req, res) => {
+	if (events.length === 0) {
+		await fetchEvents();
+	}
 	res.json(events);
 });
 
+// Create the HTTP handler
+const httpHandler = httpServerHandler(app);
 
-app.listen(3000);
-
-export default httpServerHandler({ port: 3000 });
-
-// Handler for scheduled cron triggers
-export async function scheduled(event, env, ctx) {
-	await fetchEvents();
-}
+export default {
+	async fetch(request, env, ctx) {
+		return httpHandler.fetch(request, env, ctx);
+	},
+	async scheduled(controller, env, ctx) {
+		await fetchEvents();
+		console.log("Events refreshed via cron trigger");
+	}
+};
