@@ -14,7 +14,6 @@ app.use((req, res, next) => {
 	if (req.method === "OPTIONS") return res.status(204).end();
   		next();
 });
-const cron = require("node-cron");
 
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
@@ -46,14 +45,15 @@ async function fetchEvents() {
 			city: event._embedded?.venues?.[0]?.city?.name,
 		}));
 
+		lastUpdated = new Date();
+		console.log("Events updated successfully");
 	} catch (error) {
 		console.error("Error fetching events:", error);
 	}
-	res.json(events);
 }
 
+// Initial fetch on startup
 fetchEvents();
-cron.schedule("0 */24 * * *", fetchEvents);
 
 app.get("/api/events", async (req, res) => {
 	res.json(events);
@@ -63,3 +63,8 @@ app.get("/api/events", async (req, res) => {
 app.listen(3000);
 
 export default httpServerHandler({ port: 3000 });
+
+// Handler for scheduled cron triggers
+export async function scheduled(event, env, ctx) {
+	await fetchEvents();
+}
