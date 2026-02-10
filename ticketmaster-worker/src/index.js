@@ -49,16 +49,14 @@ async function fetchTicketmasterEvents() {
 }
 
 
-app.get("/api/events", async (req, res) => {;
+app.get("/api/events", async (req, res) => {
 	res.json(events);
 });
 
 
 app.listen(3000);
+async function scheduled(event, env, ctx) {
+	ctx.waitUntil(fetchTicketmasterEvents());
+}
 
-export default {
-	server: httpServerHandler({ port: 3000 }),
-	async scheduled(controller, env, ctx) {
-    	console.log("cron processed");
-	},
-};
+export default httpServerHandler({ port: 3000 });
