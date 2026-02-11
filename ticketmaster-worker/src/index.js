@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { httpServerHandler } from "cloudflare:node";
+import { handleAsNodeRequest } from "cloudflare:node";
 import express from "express";
 
 const app = express();
@@ -53,10 +53,13 @@ app.get("/api/events", async (req, res) => {
 	res.json(events);
 });
 
-
 app.listen(3000);
-async function scheduled(event, env, ctx) {
-	ctx.waitUntil(fetchTicketmasterEvents());
-}
 
-export default httpServerHandler({ port: 3000 });
+export default {
+    async fetch(request) {
+        return handleAsNodeRequest(3000, request);
+    },
+    async scheduled(event, env, ctx) {
+        ctx.waitUntil(fetchTicketmasterEvents());
+    },
+};
