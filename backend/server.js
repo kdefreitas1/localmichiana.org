@@ -59,14 +59,15 @@ app.get("/test/events", async (req, res) => {
         
         
         page.on("response", async (response) => {
-            if (response.url().includes("/api/v3/destination/events/")) {
-                console.log(await response.json());
+            if(response.url().includes("/api/v3/destination/events/")) {
+                console.log(response.url());
             }
         });
 
         await page.goto(url);
 
         while (true) {
+            await page.reload();
             if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
                 pageNum++;
                 url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
