@@ -18,6 +18,8 @@ app.use((req, res, next) => {
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
 let events = [];
+let eventsLoaded = false;
+
 async function fetchTicketmasterEvents() {
     try {
         const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
@@ -42,7 +44,8 @@ async function fetchTicketmasterEvents() {
             venue: event._embedded?.venues?.[0]?.name,
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
-
+ 
+        eventsLoaded = true;        
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -50,6 +53,9 @@ async function fetchTicketmasterEvents() {
 
 
 app.get("/api/events", async (req, res) => {
+	if (!eventsLoaded) {
+		await fetchTicketmasterEvents();
+	}
 	res.json(events);
 });
 
