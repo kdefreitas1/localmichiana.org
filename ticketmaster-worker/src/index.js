@@ -19,6 +19,7 @@ const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
 let events = [];
 let eventsLoaded = false;
+let timestamp;
 
 async function fetchTicketmasterEvents() {
     try {
@@ -45,7 +46,8 @@ async function fetchTicketmasterEvents() {
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
  
-        eventsLoaded = true;        
+        eventsLoaded = true;  
+        timestamp = new Date().toISOString();   
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -56,7 +58,10 @@ app.get("/api/events", async (req, res) => {
 	if (!eventsLoaded) {
 		await fetchTicketmasterEvents();
 	}
-	res.json(events);
+	res.json({
+        events: events,
+        timestamp: timestamp
+    });
 });
 
 app.listen(3000);

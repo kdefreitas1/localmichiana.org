@@ -43,7 +43,7 @@ function displayEvents(data) {
   const eventsContainer = document.getElementById("events-container");
   eventsContainer.innerHTML = "";
   for (let i = 0; i < 10; i++) {
-    eventsContainer.appendChild(createItemCard(data[i], false, "event"));
+    eventsContainer.appendChild(createItemCard(data.events[i], false, "event"));
   }
 }
 

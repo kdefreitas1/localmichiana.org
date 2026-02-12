@@ -12,6 +12,7 @@ const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
 const googleApiKey = process.env.GOOGLE_API_KEY;
 
 let events = [];
+let timestamp;
 
 async function fetchTicketmasterEvents() {
     try {
@@ -38,6 +39,7 @@ async function fetchTicketmasterEvents() {
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
 
+        timestamp = new Date().toISOString();
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -46,7 +48,10 @@ async function fetchTicketmasterEvents() {
 fetchTicketmasterEvents();
 
 app.get("/api/events", (req, res) => {
-    res.json(events);
+    res.json({
+        events: events,
+        timestamp: timestamp
+    });
 });
 
 app.get("/test/events", async (req, res) => {

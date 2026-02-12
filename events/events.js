@@ -34,7 +34,7 @@ function createEventCard(event, isPlaceholder) {
 function displayEvents(data) {
   const eventsContainer = document.getElementById("events-container");
   eventsContainer.innerHTML = "";
-  data.forEach(event => {
+  data.events.forEach(event => {
     eventsContainer.appendChild(createEventCard(event, false));
   });
 }
