@@ -61,11 +61,11 @@ app.get("/test/events", async (req, res) => {
         let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
         const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
-        
+        let dataUrl;
         
         page.on("response", async (response) => {
             if(response.url().includes("/api/v3/destination/events/")) {
-                console.log(response.url());
+                dataUrl = response.url();
             }
         });
 
@@ -74,6 +74,11 @@ app.get("/test/events", async (req, res) => {
         while (true) {
             await page.reload();
             if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
+                await page.reload();
+                console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
+                await page.goto(dataUrl);
+                test = await page.content();
+                console.log(typeof test);
                 pageNum++;
                 url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
                 await page.goto(url);
