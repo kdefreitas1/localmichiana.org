@@ -71,25 +71,26 @@ app.get("/test/events", async (req, res) => {
 
         await page.goto(url);
 
-        while (true) {
+        // while (true) {
             await page.reload();
-            if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
+            // if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
                 await page.reload();
                 console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
                 await page.goto(dataUrl);
-                test = await page.content();
-                console.log(typeof test);
+                test = JSON.parse(await page.content());
+                console.log(test);
                 pageNum++;
                 url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
                 await page.goto(url);
-            } else {
-                await page.reload();
-                await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
-                break;
-            }
-        }
+            // } else {
+            //     await page.reload();
+            //     await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
+            //     break;
+            // }
+        // }
 
         await browser.close();
+        res.json(test);
     } catch (error) {
         console.error("Error fetching events:", error);
     }
