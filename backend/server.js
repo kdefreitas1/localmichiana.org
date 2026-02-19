@@ -56,12 +56,13 @@ app.get("/api/events", (req, res) => {
 
 app.get("/test/events", async (req, res) => {
     try {
-        let test = [];
+        let events = [];
+        let data = [];
+        let dataUrl;
         let pageNum = 1;
         let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
-        const browser = await puppeteer.launch({ headless: false });
+        const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        let dataUrl;
         
         page.on("response", async (response) => {
             if(response.url().includes("/api/v3/destination/events/")) {
@@ -77,8 +78,7 @@ app.get("/test/events", async (req, res) => {
                 await page.reload();
                 console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
                 await page.goto(dataUrl);
-                test = JSON.parse(await page.content());
-                console.log(test);
+                data = JSON.parse(await page.$eval("body > pre", el => el.textContent));
                 pageNum++;
                 url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
                 await page.goto(url);
@@ -90,7 +90,7 @@ app.get("/test/events", async (req, res) => {
         // }
 
         await browser.close();
-        res.json(test);
+        res.json(events);
     } catch (error) {
         console.error("Error fetching events:", error);
     }
