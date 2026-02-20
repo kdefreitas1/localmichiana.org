@@ -61,7 +61,7 @@ app.get("/test/events", async (req, res) => {
         let dataUrl;
         let pageNum = 1;
         let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({headless: false});
         const page = await browser.newPage();
         
         page.on("response", async (response) => {
@@ -72,22 +72,30 @@ app.get("/test/events", async (req, res) => {
 
         await page.goto(url);
 
-        // while (true) {
+        while (true) {
             await page.reload();
-            // if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
+            if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
                 await page.reload();
                 console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
                 await page.goto(dataUrl);
                 data = JSON.parse(await page.$eval("body > pre", el => el.textContent));
+                events.push(...data.events.map(event => ({
+                    name: event?.name,
+                    date: event?.start_date,
+                    eventType: event?.tags?.[1]?.display_name,
+                    url: event?.url,
+                    image: event?.image?.image_sizes?.large,
+                    venue: event?.primary_venue?.name,
+                    city: event?.primary_venue?.address?.city,
+                })));
                 pageNum++;
                 url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
                 await page.goto(url);
-            // } else {
-            //     await page.reload();
-            //     await page.waitForSelector(".SearchResultPanelContentEventCardList-module__eventList___2wk-D > li:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(1) > section:nth-child(2) > a:nth-child(1) > div:nth-child(1)", {visible: true,});
-            //     break;
-            // }
-        // }
+            } else {
+                await page.reload();
+                break;
+            }
+        }
 
         await browser.close();
         res.json(events);
