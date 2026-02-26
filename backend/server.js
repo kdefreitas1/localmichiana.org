@@ -108,29 +108,20 @@ app.get("/test/places", async (req, res) => {
     try {
         let places = [];
         let data = [];
-        let dataUrl;
         let pageNum = 0;
-        let url = ``;
+        let url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
         const browser = await puppeteer.launch({headless: false});
         const page = await browser.newPage();
-        
-        page.on("response", async (response) => {
-            if(response.url().includes("")) {
-                dataUrl = response.url();
-            }
-        });
 
         await page.goto(url);
         while (true) {
-            await page.reload();
-            if (pageNum <= 100) {
-                await page.reload();
-                console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
-                pageNum += 10;
-                url = ``;
+            if (pageNum <= 120) {
+                console.log(`Cycle: ${pageNum}`);
+                
+                pageNum += 30;
+                url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
                 await page.goto(url);
             } else {
-                await page.reload();
                 break;
             }
         }
