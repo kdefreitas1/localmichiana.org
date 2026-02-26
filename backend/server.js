@@ -106,10 +106,37 @@ app.get("/test/events", async (req, res) => {
 
 app.get("/test/places", async (req, res) => {
     try {
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.6629,-86.2529&radius=40000&type=point_of_interest&key=${googleApiKey}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        res.json(data);
+        let places = [];
+        let data = [];
+        let dataUrl;
+        let pageNum = 0;
+        let url = ``;
+        const browser = await puppeteer.launch({headless: false});
+        const page = await browser.newPage();
+        
+        page.on("response", async (response) => {
+            if(response.url().includes("")) {
+                dataUrl = response.url();
+            }
+        });
+
+        await page.goto(url);
+        while (true) {
+            await page.reload();
+            if (pageNum <= 100) {
+                await page.reload();
+                console.log(`Cycle: ${pageNum}, Url: ${dataUrl}`);
+                pageNum += 10;
+                url = ``;
+                await page.goto(url);
+            } else {
+                await page.reload();
+                break;
+            }
+        }
+
+        await browser.close();
+        res.json(places);
     } catch (error) {
         console.error("Error fetching places:", error);
     }
