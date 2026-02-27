@@ -9,7 +9,6 @@ const app = express();
 app.use(cors());
 
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
-const googleApiKey = process.env.GOOGLE_API_KEY;
 
 let events = [];
 let timestamp;
@@ -110,14 +109,18 @@ app.get("/test/places", async (req, res) => {
         let data = [];
         let pageNum = 0;
         let url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
-        const browser = await puppeteer.launch({headless: false});
+        const browser = await puppeteer.launch({headless: false, slowMo: 2000});
         const page = await browser.newPage();
 
         await page.goto(url);
         while (true) {
             if (pageNum <= 120) {
                 console.log(`Cycle: ${pageNum}`);
-                
+                if (await page.$("body > iframe:nth-child(3)") !== null) {
+                    const sourceElement = await page.$(".slider");
+                    const targetElement = await page.$(".sliderTarget");
+                    await sourceElement.dragAndDrop(targetElement);
+                }
                 pageNum += 30;
                 url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
                 await page.goto(url);
