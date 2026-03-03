@@ -106,35 +106,32 @@ app.get("/test/events", async (req, res) => {
 app.get("/test/places", async (req, res) => {
     try {
         let places = [];
-        let data = [];
-        let pageNum = 0;
-        let url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
-        const browser = await puppeteer.launch({headless: false, slowMo: 2000});
-        const page = await browser.newPage();
 
-        await page.goto(url);
-        while (true) {
-            if (pageNum <= 120) {
-                console.log(`Cycle: ${pageNum}`);
-                if (await page.$("body > iframe:nth-child(3)") !== null) {
-                    const sourceElement = await page.$(".slider");
-                    const targetElement = await page.$(".sliderTarget");
-                    await sourceElement.dragAndDrop(targetElement);
-                }
-                pageNum += 30;
-                url = `https://www.tripadvisor.com/Attractions-g37535-Activities-oa${pageNum}-South_Bend_Indiana.html`;
-                await page.goto(url);
-            } else {
-                break;
-            }
-        }
+        const query = `
+            [bbox:41.1662,-85.0562,42.0809,-87.2122];
+            (
+                node["leisure"="park"];
+                way["leisure"="park"];
+                relation["leisure"="park"];
+            );
+            out center;
+            `;
 
-        await browser.close();
-        res.json(places);
+        const response = await fetch("https://overpass-api.de/api/interpreter", {
+            method: "POST",
+            body: `data=${encodeURIComponent(query)}`
+        });
+
+        console.log(typeof response);
+        console.log(await response.text());
     } catch (error) {
         console.error("Error fetching places:", error);
     }
 });
+
+
+
+
 
 app.listen(3000, () => {
     console.log("Backend running on http://localhost:3000");
