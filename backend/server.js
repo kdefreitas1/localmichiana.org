@@ -106,15 +106,20 @@ app.get("/test/events", async (req, res) => {
 app.get("/test/places", async (req, res) => {
     try {
         let places = [];
-
+        const minLat = 41.105;
+        const maxLat = 42.2654;
+        const minLon = -87.063;
+        const maxLon = -85.4781;
+        
         const query = `
-            [bbox:41.1662,-85.0562,42.0809,-87.2122];
+            [out:json]
+            [bbox:${minLat},${minLon},${maxLat},${maxLon}];
             (
-                node["leisure"="park"];
-                way["leisure"="park"];
-                relation["leisure"="park"];
+                node["leisure"="park"]["name"!=""];
+                way["leisure"="park"]["name"!=""];
+                relation["leisure"="park"]["name"!=""];
             );
-            out center;
+            out body;
             `;
 
         const response = await fetch("https://overpass-api.de/api/interpreter", {
@@ -122,8 +127,8 @@ app.get("/test/places", async (req, res) => {
             body: `data=${encodeURIComponent(query)}`
         });
 
-        console.log(typeof response);
-        console.log(await response.text());
+        const data = await response.json();
+        res.json(data);
     } catch (error) {
         console.error("Error fetching places:", error);
     }
