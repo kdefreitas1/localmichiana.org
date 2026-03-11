@@ -31,9 +31,10 @@ body {
 
 .brand-text {
   margin-top: 6px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: bold;
   letter-spacing: 0.02em;
+  font-family: 'Playfair Display', serif;
 }
 
 .header a {
