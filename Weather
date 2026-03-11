@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>South Bend Weather</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+}
+
+.weather-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.weather-box img{
+    width:50px;
+    height:50px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>South Bend Weather</h2>
+
+<div class="weather-box">
+    <img id="weatherIcon" src="" alt="Weather Icon">
+    <span id="temperature">Loading...</span>
+</div>
+
+<script>
+
+async function loadWeather(){
+
+    try{
+
+        // Step 1: Get grid data for South Bend
+        const pointResponse = await fetch(
+            "https://api.weather.gov/points/41.6764,-86.2520"
+        );
+
+        const pointData = await pointResponse.json();
+
+        const forecastURL = pointData.properties.forecast;
+
+        // Step 2: Get forecast data
+        const forecastResponse = await fetch(forecastURL);
+        const forecastData = await forecastResponse.json();
+
+        const currentPeriod = forecastData.properties.periods[0];
+
+        const temp = currentPeriod.temperature;
+        const icon = currentPeriod.icon;
+
+        document.getElementById("temperature").textContent =
+            temp + "°F";
+
+        document.getElementById("weatherIcon").src = icon;
+
+    }
+    catch(error){
+
+        console.error(error);
+        document.getElementById("temperature").textContent =
+            "Weather unavailable";
+
+    }
+
+}
+
+loadWeather();
+
+/* refresh every 10 minutes */
+setInterval(loadWeather, 600000);
+
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+</body>
+</html>
