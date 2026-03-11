@@ -134,7 +134,17 @@ body {
 
 .header .navbar {
   display: flex;
+  align-items: center;
   gap: 16px;
+}
+
+.weather-temp {
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-right: 8px;
+  white-space: nowrap;
+  /*font-family: 'Playfair Display', serif;*/
 }
 
 .header .navbar a {
