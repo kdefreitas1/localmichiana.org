@@ -13,23 +13,34 @@ body {
   width: 100%;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.brand-text {
+  margin-top: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.02em;
 }
 
 .header a {
   color: white;
   text-decoration: none;
-  padding: 10px;
-  display: inline-block;
-}
-
-.header .website-name {
-  float: left;
   padding: 0;
-}
-
-.header .website-name h1 {
-  margin: 10px;
-  margin-left: 20px;
+  display: inline-block;
 }
 
 .header nav {
@@ -112,4 +123,20 @@ body {
 .container-header h2 {
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+.logo {
+  width: 85px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.header .navbar {
+  display: flex;
+  gap: 16px;
+}
+
+.header .navbar a {
+  color: rgb(255, 255, 255);
+  font-weight: 600;
 }
