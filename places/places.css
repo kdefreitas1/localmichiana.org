@@ -161,3 +161,15 @@ body {
   color: rgb(255, 255, 255);
   font-weight: 600;
 }
+
+.header .navbar a.active,
+.header .brand-link.active,
+.header .website-name.active {
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 8px;
+}
+
+.header .navbar a.active {
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 8px;
+}
