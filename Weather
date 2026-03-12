@@ -31,9 +31,9 @@ body{
 
 <div class="weather-box">
     <img id="weatherIcon" src="" alt="Weather Icon">
-    <span id="temperature">Loading...</span>
+    <span id="temperature">...</span>
 </div>
-
+<!----
 <script>
 
 async function loadWeather(){
@@ -77,6 +77,7 @@ loadWeather();
 setInterval(loadWeather, 600000); //10 minutes
 
 </script>
+-->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </body>
 </html>
