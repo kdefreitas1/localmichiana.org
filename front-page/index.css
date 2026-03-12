@@ -153,9 +153,15 @@ body {
   font-size: 1.3rem;
   margin-right: 8px;
   white-space: nowrap;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   /*font-family: 'Playfair Display', serif;*/
 }
-
+/*
+.weather-temp.weather-updated {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+*/
 .header .navbar a {
   color: rgb(255, 255, 255);
   font-weight: 600;
