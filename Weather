@@ -40,7 +40,6 @@ async function loadWeather(){
 
     try{
 
-        // Step 1: Get grid data for South Bend
         const pointResponse = await fetch(
             "https://api.weather.gov/points/41.6764,-86.2520"
         );
@@ -49,7 +48,6 @@ async function loadWeather(){
 
         const forecastURL = pointData.properties.forecast;
 
-        // Step 2: Get forecast data
         const forecastResponse = await fetch(forecastURL);
         const forecastData = await forecastResponse.json();
 
@@ -76,8 +74,7 @@ async function loadWeather(){
 
 loadWeather();
 
-/* refresh every 10 minutes */
-setInterval(loadWeather, 600000);
+setInterval(loadWeather, 600000); //10 minutes
 
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">

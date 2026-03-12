@@ -23,5 +23,27 @@ async function loadSouthBendWeather() {
   }
 }
 
+function setActiveNavbarLink() {
+  const pathName = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+  if (pathName === '' || pathName === 'index.html') {
+    const brandLink = document.querySelector('.brand-link, .website-name');
+    if (brandLink) brandLink.classList.add('active');
+  } else {
+    const brandLink = document.querySelector('.brand-link.active, .website-name.active');
+    if (brandLink) brandLink.classList.remove('active');
+  }
+
+  document.querySelectorAll('.navbar a').forEach(link => {
+    const linkPath = (link.getAttribute('href')?.split('/').pop() || '').toLowerCase();
+    if (linkPath === pathName) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
 loadSouthBendWeather();
-setInterval(loadSouthBendWeather, 600000); // every 10 minutes
+setInterval(loadSouthBendWeather, 600000);
+setActiveNavbarLink(); 
