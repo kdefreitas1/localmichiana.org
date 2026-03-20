@@ -11,6 +11,9 @@ app.use(cors());
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
 
 let events = [];
+let scrapedEvents = [];
+let places = [];
+let copyright;
 let timestamp;
 
 async function fetchTicketmasterEvents() {
@@ -44,16 +47,7 @@ async function fetchTicketmasterEvents() {
     }
 }
 
-fetchTicketmasterEvents();
-
-app.get("/api/events", (req, res) => {
-    res.json({
-        events: events,
-        timestamp: timestamp
-    });
-});
-
-app.get("/test/events", async (req, res) => {
+async function scrapeEvents() {
     try {
         let events = [];
         let data = [];
@@ -92,21 +86,20 @@ app.get("/test/events", async (req, res) => {
                 await page.goto(url);
             } else {
                 await page.reload();
+                timestamp = new Date().toISOString();
                 break;
             }
         }
 
         await browser.close();
-        res.json(events);
+        scrapedEvents = events;
     } catch (error) {
         console.error("Error fetching events:", error);
     }
-});
+}
 
-app.get("/test/places", async (req, res) => {
+async function fetchPlaces() {
     try {
-        let places = [];
-        let timestamp;
         const minLat = 41.105;
         const maxLat = 42.2654;
         const minLon = -87.063;
@@ -134,14 +127,35 @@ app.get("/test/places", async (req, res) => {
         timestamp = data.osm3s.timestamp_osm_base;
         copyright = data.osm3s.copyright;
 
-        res.json({
-            places: places,
-            timestamp: timestamp,
-            copyright: copyright
-        });
+        
     } catch (error) {
         console.error("Error fetching places:", error);
     }
+}
+
+app.get("/api/events", async (req, res) => {
+    await fetchTicketmasterEvents();
+    res.json({
+        events: events,
+        timestamp: timestamp
+    });
+});
+
+app.get("/test/events", async (req, res) => {
+    await scrapeEvents();
+    res.json({
+        events: scrapedEvents,
+        timestamp: timestamp
+    });
+});
+
+app.get("/test/places", async (req, res) => {
+    await fetchPlaces();
+    res.json({
+        places: places,
+        timestamp: timestamp,
+        copyright: copyright
+    });
 });
 
 
