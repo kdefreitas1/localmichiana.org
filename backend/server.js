@@ -16,12 +16,14 @@ let places = [];
 let copyright;
 let timestamp;
 
+// Fetch events from Ticketmaster API
 async function fetchTicketmasterEvents() {
     try {
         const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
 
+        // Gets the largest image for each event
         const eventImages = data._embedded.events.map(event => {
             let found = event.images?.find(img => img.url.includes("SOURCE"))
             || event.images?.find(img => img.url.includes("LARGE"))
@@ -30,6 +32,7 @@ async function fetchTicketmasterEvents() {
             return found?.url;
         });
 
+        // Adds relevant event data to the events array
         events = data._embedded.events.map((event, i) => ({
             name: event.name,
             date: event.dates.start.localDate,
@@ -47,6 +50,7 @@ async function fetchTicketmasterEvents() {
     }
 }
 
+// Fetch Eventbrite events using Puppeteer
 async function fetchEventbriteEvents() {
     try {
         let events = [];
@@ -57,6 +61,7 @@ async function fetchEventbriteEvents() {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         
+        // Finds the event data URL from responses
         page.on("response", async (response) => {
             if(response.url().includes("/api/v3/destination/events/")) {
                 dataUrl = response.url();
@@ -65,6 +70,7 @@ async function fetchEventbriteEvents() {
 
         await page.goto(url);
 
+        // Loops through pages getting event data
         while (true) {
             await page.reload();
             if (await page.$("li.Pagination-module__search-pagination__navigation-page___-xDRL:nth-child(3) > button:nth-child(1)") !== null) {
@@ -98,6 +104,7 @@ async function fetchEventbriteEvents() {
     }
 }
 
+// Fetch places from OpenStreetMap using Overpass API
 async function fetchPlaces() {
     try {
         const minLat = 41.105;
@@ -133,6 +140,7 @@ async function fetchPlaces() {
     }
 }
 
+// Ticketmaster events endpoint
 app.get("/api/events", async (req, res) => {
     await fetchTicketmasterEvents();
     res.json({
@@ -141,6 +149,7 @@ app.get("/api/events", async (req, res) => {
     });
 });
 
+// Eventbrite events endpoint
 app.get("/test/events", async (req, res) => {
     await fetchEventbriteEvents();
     res.json({
@@ -149,6 +158,7 @@ app.get("/test/events", async (req, res) => {
     });
 });
 
+// Places endpoint
 app.get("/test/places", async (req, res) => {
     await fetchPlaces();
     res.json({
