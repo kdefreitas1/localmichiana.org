@@ -47,7 +47,7 @@ async function fetchTicketmasterEvents() {
     }
 }
 
-async function scrapeEvents() {
+async function fetchEventbriteEvents() {
     try {
         let events = [];
         let data = [];
@@ -142,7 +142,7 @@ app.get("/api/events", async (req, res) => {
 });
 
 app.get("/test/events", async (req, res) => {
-    await scrapeEvents();
+    await fetchEventbriteEvents();
     res.json({
         events: scrapedEvents,
         timestamp: timestamp
