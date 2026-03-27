@@ -1,7 +1,7 @@
 require("dotenv").config("./backend/.env");
 
 const puppeteer = require("puppeteer");
-
+const pgp = require("pg-promise")();
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -9,6 +9,8 @@ const app = express();
 app.use(cors());
 
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
+
+const db = pgp(process.env.DATABASE_CONNECTION);
 
 let events = [];
 let scrapedEvents = [];
