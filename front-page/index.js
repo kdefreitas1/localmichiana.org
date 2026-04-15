@@ -63,7 +63,7 @@ function displayPlaceholder(name, containerId, type) {
 async function getEvents() {
   try {
     const response = await fetch(
-      "https://api.localmichiana.org/api/events",
+      "http://localhost:3000/api/events",
       {
         method: "GET",
         mode: "cors",
