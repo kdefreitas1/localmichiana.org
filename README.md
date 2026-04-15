@@ -10,13 +10,30 @@
 
 ## General Information
 
-This website was made in 1 semester for a capstone class. The idea was to create a website that promotes the local community. Originally, the website was meant to display all of the events, things to do, and places to go in Michiana. Unfortunately, there was not enough time to complete every item in just one semester, but it will be worked on in the future. The website is built with HTML, CSS, and JS. 
+This website was originally made for a capstone class, but it has grown since then. The idea was to create a website that promotes the local community. The purpose of it is to display all of the events, things to do, and places to go in Michiana.
 
 ## Technology Used
 - Frontend: HTML, CSS, JS
 - Backend: Node.js, Express.js
 - APIs: Ticketmaster
 
+## Features
+### Main Page 
+- Upcoming Events
+- Recommended Places (Not Finished)
+### Event Page
+- Provides hundreds of events in the Michiana area
+### Places Page (Not Finished)
+- Provides fun places to go visit
+### About Page
+- Information about the website
+   
+## Features Being Worked On
+- Places
+- More Events
+- Database (to store events and places)
+- Better UI
+  
 ## Developer Info and Contact
 
 Made by Kamalani DeFreitas with the help of Sohan Patel
