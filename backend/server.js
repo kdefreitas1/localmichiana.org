@@ -1,18 +1,15 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env"});
-import pgPromise from "pg-promise";
 import puppeteer from "puppeteer";
 import express from "express";
 import cors from "cors";
+import cron from "node-cron";
 
 const app = express();
 
 app.use(cors());
 
 const ticketmasterApiKey = process.env.TICKETMASTER_API_KEY;
-
-const pgp = pgPromise();
-const db = pgp(process.env.DATABASE_CONNECTION);
 
 let events = [];
 let scrapedEvents = [];
@@ -137,24 +134,28 @@ async function fetchPlaces() {
     }
 }
 
-app.get("/api/events", async (req, res) => {
-    await fetchTicketmasterEvents();
+await fetchTicketmasterEvents();
+await fetchEventbriteEvents();
+await fetchPlaces();
+cron.schedule("0 0 * * *", fetchTicketmasterEvents);
+cron.schedule("0 0 * * *", fetchEventbriteEvents);
+cron.schedule("0 0 * * *", fetchPlaces);
+
+app.get("/api/events", (req, res) => {
     res.json({
         events: events,
         timestamp: timestamp
     });
 });
 
-app.get("/test/events", async (req, res) => {
-    await fetchEventbriteEvents();
+app.get("/test/events", (req, res) => {
     res.json({
         events: scrapedEvents,
         timestamp: timestamp
     });
 });
 
-app.get("/test/places", async (req, res) => {
-    await fetchPlaces();
+app.get("/test/places", (req, res) => {
     res.json({
         places: places,
         timestamp: timestamp,
