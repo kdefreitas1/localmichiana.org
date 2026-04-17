@@ -122,21 +122,23 @@ async function fetchPlaces() {
             body: `data=${encodeURIComponent(query)}`
         });
 
-        const data = await response.json();
-        
-        places = data.elements;
-        timestamp = data.osm3s.timestamp_osm_base;
-        copyright = data.osm3s.copyright;
-
-        
+        try {
+            const data = await response.json();
+            places = data.elements;
+            timestamp = data.osm3s.timestamp_osm_base;
+            copyright = data.osm3s.copyright;
+        } catch (error) {
+            console.log(await response.text());
+        }
+  
     } catch (error) {
         console.error("Error fetching places:", error);
     }
 }
 
 await fetchTicketmasterEvents();
-await fetchEventbriteEvents();
 await fetchPlaces();
+fetchEventbriteEvents();
 cron.schedule("0 0 * * *", fetchTicketmasterEvents);
 cron.schedule("0 0 * * *", fetchEventbriteEvents);
 cron.schedule("0 0 * * *", fetchPlaces);
