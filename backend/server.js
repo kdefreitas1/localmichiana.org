@@ -1,9 +1,10 @@
-require("dotenv").config("./backend/.env");
+import dotenv from "dotenv";
+dotenv.config({ path: ".env"});
+import puppeteer from "puppeteer";
+import express from "express";
+import cors from "cors";
+import cron from "node-cron";
 
-const puppeteer = require("puppeteer");
-
-const express = require("express");
-const cors = require("cors");
 const app = express();
 
 app.use(cors());
@@ -47,7 +48,7 @@ async function fetchTicketmasterEvents() {
     }
 }
 
-async function scrapeEvents() {
+async function fetchEventbriteEvents() {
     try {
         let events = [];
         let data = [];
@@ -121,46 +122,48 @@ async function fetchPlaces() {
             body: `data=${encodeURIComponent(query)}`
         });
 
-        const data = await response.json();
-        
-        places = data.elements;
-        timestamp = data.osm3s.timestamp_osm_base;
-        copyright = data.osm3s.copyright;
-
-        
+        try {
+            const data = await response.json();
+            places = data.elements;
+            timestamp = data.osm3s.timestamp_osm_base;
+            copyright = data.osm3s.copyright;
+        } catch (error) {
+            console.log(await response.text());
+        }
+  
     } catch (error) {
         console.error("Error fetching places:", error);
     }
 }
 
-app.get("/api/events", async (req, res) => {
-    await fetchTicketmasterEvents();
+await fetchTicketmasterEvents();
+await fetchPlaces();
+fetchEventbriteEvents();
+cron.schedule("0 0 * * *", fetchTicketmasterEvents);
+cron.schedule("0 0 * * *", fetchEventbriteEvents);
+cron.schedule("0 0 * * *", fetchPlaces);
+
+app.get("/api/events", (req, res) => {
     res.json({
         events: events,
         timestamp: timestamp
     });
 });
 
-app.get("/test/events", async (req, res) => {
-    await scrapeEvents();
+app.get("/test/events", (req, res) => {
     res.json({
         events: scrapedEvents,
         timestamp: timestamp
     });
 });
 
-app.get("/test/places", async (req, res) => {
-    await fetchPlaces();
+app.get("/test/places", (req, res) => {
     res.json({
         places: places,
         timestamp: timestamp,
         copyright: copyright
     });
 });
-
-
-
-
 
 app.listen(3000, () => {
     console.log("Backend running on http://localhost:3000");

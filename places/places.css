@@ -1,15 +1,6 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
 body {
   font-family: sans-serif;
+  margin: 0;
   background-color: rgb(237, 247, 255);
 }
 
@@ -22,28 +13,6 @@ body {
   width: 100%;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-}
-
-.brand-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-}
-
-.brand-text {
-  margin-top: 6px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  letter-spacing: 0.02em;
-  font-family: 'Playfair Display', serif;
 }
 
 .header a {
@@ -143,48 +112,4 @@ body {
 .container-header h2 {
   margin-top: 0;
   margin-bottom: 20px;
-}
-
-.logo {
-  width: 85px;
-  height: auto;
-  border-radius: 6px;
-}
-
-.header .navbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.weather-temp {
-  color: rgb(255, 255, 255);
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin-right: 8px;
-  white-space: nowrap;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  /*font-family: 'Playfair Display', serif;*/
-}
-/*
-.weather-temp.weather-updated {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-*/
-.header .navbar a {
-  color: rgb(255, 255, 255);
-  font-weight: 600;
-}
-
-.header .navbar a.active,
-.header .brand-link.active,
-.header .website-name.active {
-  border-bottom: 2px solid #ffffff;
-  padding-bottom: 8px;
-}
-
-.header .navbar a.active {
-  border-bottom: 2px solid #ffffff;
-  padding-bottom: 8px;
 }
