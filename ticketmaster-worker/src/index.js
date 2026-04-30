@@ -63,7 +63,7 @@ async function fetchEventbriteEvents() {
         let dataUrl;
         let pageNum = 1;
         let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch(env.MYBROWSER);
         const page = await browser.newPage();
         
         page.on("response", async (response) => {

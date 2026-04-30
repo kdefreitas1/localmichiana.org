@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "ticketmaster-worker",
 	"main": "src/index.js",
-	"compatibility_date": "2025-12-05",
+	"compatibility_date": "2026-04-30",
 	"observability": {
 		"enabled": true
 	},
@@ -17,7 +17,10 @@
 		"crons": [
 			"0 5 * * *"
 		]
-	}
+	},
+	"browser": {
+    	"binding": "MYBROWSER",
+  	}
 	
 	/**
 	 * Smart Placement
