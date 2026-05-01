@@ -132,12 +132,13 @@ async function fetchPlaces() {
         });
 
         try {
-            const data = await response.json();
-            places = data.elements;
-            timestamp = data.osm3s.timestamp_osm_base;
-            copyright = data.osm3s.copyright;
-        } catch (error) {
             console.log(await response.text());
+            // const data = await response.json();
+            // places = data.elements;
+            // timestamp = data.osm3s.timestamp_osm_base;
+            // copyright = data.osm3s.copyright;
+        } catch (error) {
+            console.log(error);
         }
   
     } catch (error) {
