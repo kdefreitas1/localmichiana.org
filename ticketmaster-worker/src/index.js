@@ -129,10 +129,10 @@ async function fetchPlaces() {
         const response = await fetch("https://overpass-api.de/api/interpreter", {
             method: "POST",
             body: `data=${encodeURIComponent(query)}`
-        });
+        }).then((data) => data.json());
 
         try {
-            console.log(await response.text());
+            // console.log(await response.text());
             // const data = await response.json();
             // places = data.elements;
             // timestamp = data.osm3s.timestamp_osm_base;
@@ -183,6 +183,6 @@ export default {
     async scheduled(event, env, ctx) {
         ctx.waitUntil(fetchTicketmasterEvents());
         ctx.waitUntil(fetchPlaces());
-        ctx.waitUntil(fetchEventbriteEvents());
+        // ctx.waitUntil(fetchEventbriteEvents());
     },
 };
