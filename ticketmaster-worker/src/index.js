@@ -124,19 +124,23 @@ async function fetchPlaces() {
                 relation["leisure"="park"]["name"]["operator"]["access"!="private"];
             );
             out body;
-            `;
+        `;
 
         const response = await fetch("https://overpass-api.de/api/interpreter", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "User-Agent": "localmichiana.org/1.0 (localmichiana@gmail.com)",
+                "Referer": "https://www.localmichiana.org",
+            },
             body: `data=${encodeURIComponent(query)}`
-        }).then((data) => data.json());
+        })
 
         try {
-            // console.log(await response.text());
-            // const data = await response.json();
-            // places = data.elements;
-            // timestamp = data.osm3s.timestamp_osm_base;
-            // copyright = data.osm3s.copyright;
+            const data = await response.json();
+            places = data.elements;
+            timestamp = data.osm3s.timestamp_osm_base;
+            copyright = data.osm3s.copyright;
         } catch (error) {
             console.log(error);
         }
