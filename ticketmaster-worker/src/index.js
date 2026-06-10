@@ -18,13 +18,6 @@ app.use((req, res, next) => {
 
 const ticketmasterApiKey = env.TICKETMASTER_API_KEY;
 
-let events = [];
-let scrapedEvents = [];
-let places = [];
-let loaded = false;
-let copyright;
-let timestamp;
-
 async function fetchTicketmasterEvents() {
     try {
         const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?geoPoint=dp6tj&radius=40&unit=miles&size=150&sort=date,asc&apikey=${ticketmasterApiKey}`;
@@ -39,7 +32,7 @@ async function fetchTicketmasterEvents() {
             return found?.url;
         });
 
-        events = data._embedded.events.map((event, i) => ({
+        let events = data._embedded.events.map((event, i) => ({
             name: event.name,
             date: event.dates.start.localDate,
             eventType: event.classifications?.[0]?.segment?.name,
@@ -50,7 +43,8 @@ async function fetchTicketmasterEvents() {
             city: event._embedded?.venues?.[0]?.city?.name,
         }));
   
-        timestamp = new Date().toISOString();   
+        let timestamp = new Date().toISOString();
+        await env.LOCALMICHIANA_DATA.put("ticketmaster_events", JSON.stringify({ events, timestamp }));
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -62,6 +56,7 @@ async function fetchEventbriteEvents() {
         let data = [];
         let dataUrl;
         let pageNum = 1;
+        let timestamp;
         let url = `https://www.eventbrite.com/d/united-states/all-events/?page=${pageNum}&bbox=-86.81387816523437%2C41.21951796097693%2C-85.75919066523437%2C42.189403230536186`;
         const browser = await puppeteer.launch(env.MYBROWSER);
         const page = await browser.newPage();
@@ -101,8 +96,7 @@ async function fetchEventbriteEvents() {
         }
 
         await browser.close();
-        scrapedEvents = events;
-        loaded = true;
+        await env.LOCALMICHIANA_DATA.put("eventbrite_events", JSON.stringify({ events, timestamp }));
     } catch (error) {
         console.error("Error fetching events:", error);
     }
@@ -138,47 +132,50 @@ async function fetchPlaces() {
 
         try {
             const data = await response.json();
-            places = data.elements;
-            timestamp = data.osm3s.timestamp_osm_base;
-            copyright = data.osm3s.copyright;
+            let places = data.elements;
+            let timestamp = data.osm3s.timestamp_osm_base;
+            let copyright = data.osm3s.copyright;
+            await env.LOCALMICHIANA_DATA.put("places", JSON.stringify({ places, timestamp, copyright }));
         } catch (error) {
             console.log(error);
         }
-  
+        
     } catch (error) {
         console.error("Error fetching places:", error);
     }
 }
 
-app.get("/events/tm", (req, res) => {
-	res.json({
-        events: events,
-        timestamp: timestamp
-    });
+app.get("/events/tm", async (req, res) => {
+    const stored = await env.LOCALMICHIANA_DATA.get("ticketmaster_events", "json");
+    if (stored == null) {
+        await fetchTicketmasterEvents();
+        res.json(await env.LOCALMICHIANA_DATA.get("ticketmaster_events", "json"));
+    } else {
+        res.json(stored);
+    }
 });
 
-app.get("/events/eb", (req, res) => {
-    res.json({
-        events: scrapedEvents,
-        timestamp: timestamp
-    });
+app.get("/events/eb", async (req, res) => {
+    const stored = await env.LOCALMICHIANA_DATA.get("eventbrite_events", "json");
+    if (stored == null) {
+        await fetchEventbriteEvents();
+        res.json(await env.LOCALMICHIANA_DATA.get("eventbrite_events", "json"));
+    } else {
+        res.json(stored);
+    }
 });
 
-app.get("/places", (req, res) => {
-    res.json({
-        places: places,
-        timestamp: timestamp,
-        copyright: copyright
-    });
+app.get("/places", async (req, res) => {
+    const stored = await env.LOCALMICHIANA_DATA.get("places", "json");
+    if (stored == null) {
+        await fetchPlaces();
+        res.json(await env.LOCALMICHIANA_DATA.get("places", "json"));
+    } else {
+        res.json(stored);
+    }
 });
 
 app.listen(3000);
-
-// if (!loaded) {
-//     await fetchTicketmasterEvents();
-//     await fetchPlaces();
-//     fetchEventbriteEvents();
-// }
 
 export default {
     async fetch(request) {
@@ -187,6 +184,6 @@ export default {
     async scheduled(event, env, ctx) {
         ctx.waitUntil(fetchTicketmasterEvents());
         ctx.waitUntil(fetchPlaces());
-        // ctx.waitUntil(fetchEventbriteEvents());
+        ctx.waitUntil(fetchEventbriteEvents());
     },
 };
