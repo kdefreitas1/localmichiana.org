@@ -32,6 +32,7 @@ This website was originally made for a capstone class, but it has grown since th
 - Places
 - More Events
 - Database (to store events and places)
+- Cleaning Backend
 - Better UI
   
 ## Developer Info and Contact
