@@ -8,3 +8,7 @@ crons = ["0 5 * * *"]
 
 [browser]
 binding = "MYBROWSER"
+
+[[kv_namespaces]]
+binding = "LOCALMICHIANA_DATA"
+id = "a16b578af36043b7b288c1b799a28291"
