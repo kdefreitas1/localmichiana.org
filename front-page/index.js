@@ -63,7 +63,7 @@ function displayPlaceholder(name, containerId, type) {
 async function getEvents() {
   try {
     const response = await fetch(
-      "http://localhost:3000/api/events",
+      "http://127.0.0.1:8787/events/tm",
       {
         method: "GET",
         mode: "cors",

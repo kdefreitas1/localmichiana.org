@@ -54,7 +54,7 @@ function displayPlaceholderEvents() {
 
 async function getEvents() {
   try {
-    const response = await fetch("http://localhost:3000/api/events");
+    const response = await fetch("http://127.0.0.1:8787/events/tm");
     const data = await response.json();
 
     localStorage.setItem("eventsData", JSON.stringify(data));
