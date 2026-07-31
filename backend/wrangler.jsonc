@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "localmichiana-backend",
 	"main": "src/index.js",
-	"compatibility_date": "2026-06-18",
+	"compatibility_date": "2026-07-30",
 	"observability": {
 		"enabled": true
 	},
@@ -19,7 +19,7 @@
 		]
 	},
 	"browser": {
-    	"binding": "MYBROWSER",
+    	"binding": "MYBROWSER"
   	},
 	"kv_namespaces": [
 		{

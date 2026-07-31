@@ -8,7 +8,7 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "https://www.localmichiana.org");
+	res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
 	res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   	res.setHeader("Access-Control-Allow-Headers", "*");
 	res.setHeader("Vary", "Origin");
